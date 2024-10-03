@@ -26,4 +26,30 @@ public class Novel {
         this.authorName = authorName;
         this.yearPublished = yearPublished;
     }
+
+
+    /**
+     * Accessor for the title of the novel.
+     * @return
+     */
+    public String getTitle() {
+        return title;
+    }
+
+
+    /**
+     * Accessor for the author's name.
+     * @return
+     */
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    /**
+     * Accessors for the year published
+     * @return
+     */
+    public int getYearPublished() {
+        return yearPublished;
+    }
 }
