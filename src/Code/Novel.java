@@ -62,4 +62,8 @@ public class Novel {
 //        return that.getTitle() - this.getTitle();
 //    }
 
+    public String toString(){
+        return (title + ", " + authorName + ", " + yearPublished);
+    }
+
 }
