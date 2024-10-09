@@ -52,4 +52,14 @@ public class Novel {
     public int getYearPublished() {
         return yearPublished;
     }
+
+//    /**
+//     * Override CompareTo method.
+//     * @return title titles in alpha order
+//     */
+//    @Override
+//    public int compareTo(final Novel that) {
+//        return that.getTitle() - this.getTitle();
+//    }
+
 }
