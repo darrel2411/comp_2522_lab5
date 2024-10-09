@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2eed3db6-0b83-4da2-a258-b73417da1802" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Code/Novel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Code/BookStores.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Test/TestCsv.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab5.iml" beforeDir="false" afterPath="$PROJECT_DIR$/lab5.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lab5Table.csv" beforeDir="false" afterPath="$PROJECT_DIR$/dataLab5.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,23 +34,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/manasesvillalobos/Documents/CST/Term 2/COMP2522 Java 2/Labs/comp_2522_lab5",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.TestCsv.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;csvTest&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/manasesvillalobos/Documents/CST/Term 2/COMP2522 Java 2/Labs/comp_2522_lab5&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/Code" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -67,7 +75,14 @@
       <option name="presentableId" value="Default" />
       <updated>1727997343714</updated>
       <workItem from="1727997344705" duration="1000" />
-      <workItem from="1727998583557" duration="654000" />
+      <workItem from="1727998583557" duration="8132000" />
+      <workItem from="1728278775703" duration="122000" />
+      <workItem from="1728315922572" duration="4116000" />
+      <workItem from="1728328799203" duration="4329000" />
+      <workItem from="1728399834523" duration="19000" />
+      <workItem from="1728406353822" duration="80000" />
+      <workItem from="1728417873258" duration="1135000" />
+      <workItem from="1728490027337" duration="3670000" />
     </task>
     <servers />
   </component>
