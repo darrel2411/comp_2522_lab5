@@ -1,8 +1,13 @@
-import javax.imageio.stream.ImageInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Represent a BookStore class.
+ * @author Darrel Tapilaha
+ * @author Manases Villalobos
+ * @version 1.0
+ */
 public class BookStore {
     private final String name;
     private final List<Novel> novels;
@@ -10,167 +15,195 @@ public class BookStore {
     private static final int END_DECADE = 9;
     private static final int MAX_PERCENTAGE = 100;
 
+    /**
+     * Constructs a {@code BookStore} object with the specified name.
+     * Initializes an empty list of novels and adds a few sample novels.
+     *
+     * @param name the name of the bookstore
+     * @throws IllegalArgumentException if the provided name is blank or empty
+     */
     public BookStore(final String name) {
         validateName(name);
         this.name = name;
         this.novels = new ArrayList<>();
 
+        // Add sample novels to the collection
         novels.add(new Novel("All the King's Men", "Robert Penn Warren", 1946));
         novels.add(new Novel("Beloved", "Toni Morrison", 1987));
     }
 
+    /*
+     * Validates the bookstore's name.
+     * Throws an IllegalArgumentException if the name is empty or blank.
+     */
     private void validateName(final String name) {
-        if(name.isEmpty() || name.isBlank()){
+        if (name.isEmpty() || name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be empty");
         }
     }
 
+    /**
+     * Returns the name of the bookstore.
+     *
+     * @return the name of the bookstore
+     */
     public String getName() {
         return name;
     }
 
-    public void printAllTitles(){
-        for(final Novel n: novels){
-            // place title toUpperCase in a local variable
-            final String title;
-            title = n.getTitle().toUpperCase();
-
+    /**
+     * Prints all novel titles in the collection in uppercase.
+     */
+    public void printAllTitles() {
+        for (final Novel n : novels) {
+            final String title = n.getTitle().toUpperCase();
             System.out.println(title);
         }
     }
 
-    public void printBookTitle(final String word){
-        for(final Novel n: novels){
-
-            final String title;
-            final String search;
-
-            title = n.getTitle().toLowerCase();
-            search = word.toLowerCase();
-
-            if(title.contains(search)){
+    /**
+     * Prints the titles of novels that contain the specified word (case-insensitive) in their title.
+     *
+     * @param word the word to search for in the title
+     */
+    public void printBookTitle(final String word) {
+        for (final Novel n : novels) {
+            final String title = n.getTitle().toLowerCase();
+            final String search = word.toLowerCase();
+            if (title.contains(search)) {
                 System.out.println(title);
             }
         }
     }
 
-    public void printTitlesInAlphaOrder(){
-        final List<String> titles;
-        titles = new ArrayList<>();
-        for(final Novel n: novels){
+    /**
+     * Prints all novel titles in the collection in alphabetical order.
+     */
+    public void printTitlesInAlphaOrder() {
+        final List<String> titles = new ArrayList<>();
+        for (final Novel n : novels) {
             titles.add(n.getTitle());
         }
         Collections.sort(titles);
-
-        //print after sorted titles
-        for(final String t: titles){
+        for (final String t : titles) {
             System.out.println(t);
         }
-
     }
 
-    public void printGroupByDecade(final int decade){
-        final int startDecade;
-        final int endDecade;
-
-        startDecade = decade;
-        endDecade = startDecade + END_DECADE;
-
-        for(final Novel n: novels){
-            if(n.getYearPublished() >= startDecade &&
-               n.getYearPublished() <= endDecade)
-            {
+    /**
+     * Prints the novels that were published in a specific decade.
+     *
+     * @param decade the starting year of the decade (e.g., 2000 for the 2000s)
+     */
+    public void printGroupByDecade(final int decade) {
+        final int startDecade = decade;
+        final int endDecade = startDecade + END_DECADE;
+        for (final Novel n : novels) {
+            if (n.getYearPublished() >= startDecade && n.getYearPublished() <= endDecade) {
                 System.out.println(n);
             }
         }
     }
 
-    public void getLongest(){
-        // not final because it needs to be re-assigned
-        // if longer title is found in the loop below
-        Novel longestTitle;
-        longestTitle = novels.get(0);
-
-        for(final Novel n: novels){
-            if(longestTitle.getTitle().length() < n.getTitle().length()){
+    /**
+     * Prints the novel with the longest title in the collection.
+     */
+    public void getLongest() {
+        Novel longestTitle = novels.get(0);
+        for (final Novel n : novels) {
+            if (longestTitle.getTitle().length() < n.getTitle().length()) {
                 longestTitle = n;
             }
         }
         System.out.println(longestTitle.toString());
     }
 
-    public boolean isThereABookWrittenIn(final int year){
-        for(final Novel n: novels){
-            if(n.getYearPublished() == year){
+    /**
+     * Checks if there is any novel written in the specified year.
+     *
+     * @param year the year to check for
+     * @return {@code true} if a novel was written in the specified year, {@code false} otherwise
+     */
+    public boolean isThereABookWrittenIn(final int year) {
+        for (final Novel n : novels) {
+            if (n.getYearPublished() == year) {
                 return true;
             }
         }
         return false;
     }
 
-    public int howManyBooksContain(final String word){
-        // not final because it needs to be re-assigned
-        // if contain word is found in the loop below
-        int counter;
-        final String search;
-
-        counter = 0;
-        search = word.toLowerCase();
-
-        for(final Novel n: novels){
-            final String title;
-            title = n.getTitle().toUpperCase();
-            if(title.contains(search)){
+    /**
+     * Returns the number of novels that contain the specified word in their title.
+     *
+     * @param word the word to search for
+     * @return the number of novels that contain the specified word
+     */
+    public int howManyBooksContain(final String word) {
+        int counter = 0;
+        final String search = word.toLowerCase();
+        for (final Novel n : novels) {
+            final String title = n.getTitle().toUpperCase();
+            if (title.contains(search)) {
                 counter++;
             }
         }
         return counter;
     }
 
-    public int whichPercentWrittenBetween(final int first,
-                                          final int last)
-    {
-        // not final because it needs to be re-assigned
-        // if contain word is found in the loop below
-        int counter;
-        final int calculatePercent;
-
-        counter = 0;
-
-        for(final Novel n: novels){
-            if(n.getYearPublished() >= first &&
-               n.getYearPublished() <= last)
-            {
+    /**
+     * Returns the percentage of novels written between the specified years (inclusive).
+     *
+     * @param first the start year (inclusive)
+     * @param last  the end year (inclusive)
+     * @return the percentage of novels written between the two years
+     */
+    public int whichPercentWrittenBetween(final int first, final int last) {
+        int counter = 0;
+        for (final Novel n : novels) {
+            if (n.getYearPublished() >= first && n.getYearPublished() <= last) {
                 counter++;
             }
         }
-        calculatePercent = counter / novels.size() * MAX_PERCENTAGE;
-        return calculatePercent;
+        return counter / novels.size() * MAX_PERCENTAGE;
     }
 
-    public Novel getOldestBook(){
-        Novel oldestBook;
-        oldestBook = novels.get(0);
-        for(final Novel n: novels){
-            if(n.getYearPublished() < oldestBook.getYearPublished()){
+    /**
+     * Returns the oldest novel in the collection based on the year of publication.
+     *
+     * @return the oldest novel
+     */
+    public Novel getOldestBook() {
+        Novel oldestBook = novels.get(0);
+        for (final Novel n : novels) {
+            if (n.getYearPublished() < oldestBook.getYearPublished()) {
                 oldestBook = n;
             }
         }
         return oldestBook;
     }
 
-    public List<Novel> getBooksThisLength(final int titleLength){
-        final List<Novel> novelsWithSpecificLength;
-        novelsWithSpecificLength = new ArrayList<>();
-
-        for(final Novel n: novels){
-            if(n.getTitle().length() >= titleLength){
+    /**
+     * Returns a list of novels whose titles have a length greater than or equal to the specified length.
+     *
+     * @param titleLength the length of the title to match
+     * @return a list of novels with titles of the specified length
+     */
+    public List<Novel> getBooksThisLength(final int titleLength) {
+        final List<Novel> novelsWithSpecificLength = new ArrayList<>();
+        for (final Novel n : novels) {
+            if (n.getTitle().length() >= titleLength) {
                 novelsWithSpecificLength.add(n);
             }
         }
         return novelsWithSpecificLength;
     }
 
+    /**
+     * The main method that demonstrates the functionality of the {@code BookStore} class.
+     *
+     * @param args command-line arguments
+     */
     public static void main(final String[] args) {
         final BookStore bookstore;
         final Novel oldest;
