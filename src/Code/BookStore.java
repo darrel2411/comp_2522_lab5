@@ -196,5 +196,4 @@ public class BookStore {
         fifteenCharTitles = bookstore.getBooksThisLength(15);
         fifteenCharTitles.forEach(novel -> System.out.println(novel.getTitle()));
     }
-    }
 }
