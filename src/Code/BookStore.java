@@ -1,6 +1,14 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Collections;
+import java.util.Scanner;
+
 
 /**
  * Represent a BookStore class.
@@ -26,6 +34,7 @@ public class BookStore {
     private static final String SPECIAL_WORD = "the";
     private static final String DELIMITER = ",";
     private static final String FILE_NAME = "dataLab5.csv";
+    private static final int NOTHING = 0;
 
     /**
      * Constructs a {@code BookStore} object with the specified name.
@@ -36,6 +45,10 @@ public class BookStore {
      */
     public BookStore(final String name) {
         validateName(name);
+
+        final List<String> keyList ;
+
+
         this.name = name;
         this.novels = new ArrayList<>();
         this.novelMap = new HashMap<>();
@@ -46,7 +59,7 @@ public class BookStore {
         createMap(this.novels);
         this.keys = novelMap.keySet();
         printTitlesAndClean(this.keys, SPECIAL_WORD);
-        final List<String> keyList = new ArrayList<>(keys);
+        keyList = new ArrayList<>(keys);
         // Step 3: Sort the List
         Collections.sort(keyList);
 
@@ -73,16 +86,18 @@ public class BookStore {
                                      final String specialWord)
     {
         final Iterator<String> iterator;
-
         iterator = this.keys.iterator();
 
-        while (iterator.hasNext()) {
+        System.out.println("All novel titles:");
+
+        while (iterator.hasNext())
+        {
             final String key;
-
             key = iterator.next();
-
             System.out.println(key);
-            if(key.contains(specialWord)){
+
+            if(key.contains(specialWord))
+            {
                 iterator.remove();
             }
 
@@ -98,7 +113,8 @@ public class BookStore {
      * @param novels as a List of novels.
      */
     private void createMap(final List<Novel> novels) {
-        for(final Novel novel : this.novels) {
+        validateNovelList(novels);
+        for(final Novel novel : novels) {
             final String title;
 
             // Gets the title of the novel
@@ -118,6 +134,15 @@ public class BookStore {
         }
     }
 
+    /*
+     * Throw new IllegalArgumentException if novel is empty or equals to null value.
+     */
+    private void validateNovelList(final List<Novel> novels) {
+        if (novels == null || novels.isEmpty()) {
+            throw new IllegalArgumentException("Novel list is empty!");
+        }
+    }
+
     /**
      * Returns the name of the bookstore.
      *
@@ -131,8 +156,11 @@ public class BookStore {
      * Prints all novel titles in the collection in uppercase.
      */
     public void printAllTitles() {
+        validateNovelList(this.novels);
+
         for (final Novel n : novels) {
-            final String title = n.getTitle().toUpperCase();
+            final String title;
+            title = n.getTitle().toUpperCase();
             System.out.println(title);
         }
     }
@@ -143,9 +171,15 @@ public class BookStore {
      * @param word the word to search for in the title
      */
     public void printBookTitle(final String word) {
+        validateNovelList(this.novels);
+
         for (final Novel n : novels) {
-            final String title = n.getTitle().toLowerCase();
-            final String search = word.toLowerCase();
+            final String title;
+            final String search;
+
+            title = n.getTitle().toLowerCase();
+            search = word.toLowerCase();
+
             if (title.contains(search)) {
                 System.out.println(title);
             }
@@ -160,7 +194,7 @@ public class BookStore {
 
         titles = new ArrayList<>();
 
-
+        validateNovelList(this.novels);
         for (final Novel n : novels) {
             titles.add(n.getTitle());
         }
@@ -184,6 +218,8 @@ public class BookStore {
         startDecade = decade;
         endDecade = startDecade + END_DECADE;
 
+        validateNovelList(this.novels);
+
         for (final Novel n : novels) {
             if (n.getYearPublished() >= startDecade &&
                 n.getYearPublished() <= endDecade)
@@ -197,10 +233,26 @@ public class BookStore {
      * Prints the novel with the longest title in the collection.
      */
     public void getLongest() {
-        Novel longestTitle = novels.get(FIRST_ELEMENT_ARRAY);
+        // need to re-assign longest title if found the new longest title
+        Novel longestTitle;
+        longestTitle = null;
+
+        // throw error if list of novels is null
+        validateNovelList(this.novels);
+
         for (final Novel n : novels) {
-            if (longestTitle.getTitle().length() < n.getTitle().length()) {
+            if(longestTitle == null){
                 longestTitle = n;
+            } else {
+                final int longestTitleLength;
+                final int currentTitleLength;
+
+                longestTitleLength = longestTitle.getTitle().length();
+                currentTitleLength = n.getTitle().length();
+
+                if (longestTitleLength < currentTitleLength) {
+                    longestTitle = n;
+                }
             }
         }
         System.out.println(longestTitle.toString());
@@ -213,8 +265,9 @@ public class BookStore {
      * @return {@code true} if a novel was written in the specified year, {@code false} otherwise
      */
     public boolean isThereABookWrittenIn(final int year) {
+        validateNovelList(this.novels);
         for (final Novel n : novels) {
-            if (n.getYearPublished() == year) {
+            if(n != null && n.getYearPublished() == year) {
                 return true;
             }
         }
@@ -228,10 +281,16 @@ public class BookStore {
      * @return the number of novels that contain the specified word
      */
     public int howManyBooksContain(final String word) {
-        int counter = FIRST_ELEMENT_ARRAY;
-        final String search = word.toLowerCase();
+        // need to re-assign the counter
+        int counter;
+        final String search;
+
+        counter = NOTHING;
+        search = word.toLowerCase();
+
+        validateNovelList(this.novels);
         for (final Novel n : novels) {
-            final String title = n.getTitle().toUpperCase();
+            final String title = n.getTitle().toLowerCase();
             if (title.contains(search)) {
                 counter++;
             }
@@ -246,16 +305,28 @@ public class BookStore {
      * @param last  the end year (inclusive)
      * @return the percentage of novels written between the two years
      */
-    public int whichPercentWrittenBetween(final int first, final int last) {
-        int counter = FIRST_ELEMENT_ARRAY;
+    public double whichPercentWrittenBetween(final int first, final int last) {
+        // need to re-assign the counter
+        int counter;
+        final double output;
 
+        counter = NOTHING;
+
+        validateNovelList(this.novels);
         for (final Novel n : novels) {
-            if (n.getYearPublished() >= first && n.getYearPublished() <= last) {
+            final int currentBookYearPublished;
+            currentBookYearPublished = n.getYearPublished();
+
+            if (currentBookYearPublished >= first &&
+                currentBookYearPublished <= last)
+            {
                 counter++;
             }
         }
 
-        return counter / novels.size() * MAX_PERCENTAGE;
+        output = (double) counter / novels.size() * MAX_PERCENTAGE;
+
+        return output;
     }
 
     /**
@@ -264,9 +335,26 @@ public class BookStore {
      * @return the oldest novel
      */
     public Novel getOldestBook() {
-        Novel oldestBook = novels.get(FIRST_ELEMENT_ARRAY);
+        Novel oldestBook;
+
+        oldestBook = null;
+
+        validateNovelList(this.novels);
         for (final Novel n : novels) {
-            if (n.getYearPublished() < oldestBook.getYearPublished()) {
+            final int thisYearPublished;
+            final int thatYearPublished;
+
+            thisYearPublished = n.getYearPublished();
+
+
+            if(oldestBook == null){
+                oldestBook = n;
+                continue;
+            }
+
+            thatYearPublished = oldestBook.getYearPublished();
+
+            if (thisYearPublished < thatYearPublished) {
                 oldestBook = n;
             }
         }
@@ -280,30 +368,39 @@ public class BookStore {
      * @return a list of novels with titles of the specified length
      */
     public List<Novel> getBooksThisLength(final int titleLength) {
-        final List<Novel> novelsWithSpecificLength = new ArrayList<>();
+        final List<Novel> novelsWithSpecificLength;
+
+        novelsWithSpecificLength = new ArrayList<>();
+
+        validateNovelList(this.novels);
         for (final Novel n : novels) {
-            if (n.getTitle().length() >= titleLength) {
+            final int thisTitleLength;
+
+            thisTitleLength = n.getTitle().length();
+
+            if (thisTitleLength >= titleLength) {
                 novelsWithSpecificLength.add(n);
             }
         }
         return novelsWithSpecificLength;
     }
 
-    /**
-     * It will print all the novels that are in the list.
-     */
-    public void printNovels(){
-        int counter;
-        counter = FIRST_ELEMENT_ARRAY;
-        for(final Novel n: novels){
-            counter++;
-            System.out.println("Novel " + counter);
-            System.out.println("Title: " + n.getTitle());
-            System.out.println("Author " + n.getAuthorName());
-            System.out.println("Year published" + n.getYearPublished());
-            System.out.println();
-        }
-    }
+//    /**
+//     * It will print all the novels that are in the list.
+//     */
+//    public void printNovels(){
+//        // need to re-assign the counter
+//        int counter;
+//        counter = NOTHING;
+//        for(final Novel n: novels){
+//            counter++;
+//            System.out.println("Novel " + counter);
+//            System.out.println("Title: " + n.getTitle());
+//            System.out.println("Author " + n.getAuthorName());
+//            System.out.println("Year published" + n.getYearPublished());
+//            System.out.println();
+//        }
+//    }
 
 
     /*
@@ -397,7 +494,8 @@ public class BookStore {
     private void populateNovels(final List<Novel> novels) {
 
         // Create a File object representing the CSV file
-        final File file = new File(FILE_NAME);
+        final File file;
+        file = new File(FILE_NAME);
 
         try {
 
@@ -414,22 +512,30 @@ public class BookStore {
                 // for the indexes in the line
                 int index = FIRST_CHAR;
 
-                // It will store the current row separating the columns
-                String[] columns = new String[ARRAY_SIZE];
+
 
                 // Check if the first char starts with
                 // SPECIAL_CHAR if so then it means the column has a
                 // coma inside the string
                 if(line.charAt(FIRST_CHAR) == SPECIAL_CHAR){
+                    // It will store the current row separating the columns
+                    final String[] columns;
+                    columns = new String[ARRAY_SIZE];
+
                     // Fix the problem separating the column
                     // with the comma inside in a new string
-                    final StringBuilder comaStr = new StringBuilder();
+                    final StringBuilder comaStr;
+
+                    comaStr = new StringBuilder();
 
                     // The rest of the row will be stored here
                     final String restLine;
 
+                    // It will start getting the string with the comma inside.
                     do{
-                        final char currentChar = line.charAt(index);
+                        final char currentChar;
+
+                        currentChar = line.charAt(index);
 
                         // If the line at the current index starts with SPECIAL CHAR
                         // then don't add that character to that word.
@@ -474,6 +580,9 @@ public class BookStore {
                                          yearPublished));
 
                 } else {
+
+                    // It will store the current row separating the columns
+                    final String[] columns;
                     // If the line did not start with " then
                     // .split can be used to separate the columns
                     columns = line.split(DELIMITER);
@@ -493,5 +602,98 @@ public class BookStore {
         } catch (final FileNotFoundException e){
             System.out.println("File not found: " + FILE_NAME);
         }
+    }
+
+    /**
+     * The main method that demonstrates the functionality of the {@code BookStore} class.
+     *
+     * @param args command-line arguments
+     */
+    public static void main(final String[] args) {
+        final BookStore bookstore;
+        final Novel oldest;
+        final List<Novel> fifteenCharTitles;
+
+
+        bookstore = new BookStore("Classic Novels Collection");
+
+
+
+        System.out.println("Welcome to " + bookstore.getName());
+        // Division line
+        System.out.println("====================================");
+        System.out.println();
+
+
+        System.out.println("All Titles in UPPERCASE:");
+        bookstore.printAllTitles();
+
+        // Division line
+        System.out.println("====================================");
+        System.out.println();
+
+        System.out.println("\nBook Titles Containing 'the':");
+        bookstore.printBookTitle("the");
+
+
+        // Division line
+        System.out.println("====================================");
+        System.out.println();
+
+        System.out.println("\nAll Titles in Alphabetical Order:");
+        bookstore.printTitlesInAlphaOrder();
+
+        // Division line
+        System.out.println("====================================");
+        System.out.println();
+
+        System.out.println("\nBooks from the 2000s:");
+        bookstore.printGroupByDecade(2000);
+
+        // Division line
+        System.out.println("====================================");
+        System.out.println();
+
+        System.out.println("\nLongest Book Title:");
+        bookstore.getLongest();
+
+        // Division line
+        System.out.println("====================================");
+        System.out.println();
+
+
+        System.out.println("\nIs there a book written in 1950?");
+        System.out.println(bookstore.isThereABookWrittenIn(1950));
+        // Division line
+        System.out.println("====================================");
+        System.out.println();
+
+        System.out.println("\nHow many books contain 'heart'?");
+        System.out.println(bookstore.howManyBooksContain("heart"));
+
+        // Division line
+        System.out.println("====================================");
+        System.out.println();
+
+
+        System.out.println("\nPercentage of books written between 1940 and 1950:");
+        System.out.println(bookstore.whichPercentWrittenBetween(1940, 1950) + "%");
+
+        // Division line
+        System.out.println("====================================");
+        System.out.println();
+
+        System.out.println("\nOldest book:");
+        oldest = bookstore.getOldestBook();
+        System.out.println(oldest.getTitle() + " by " + oldest.getAuthorName() + ", " +
+                oldest.getYearPublished());
+
+        // Division Line
+        System.out.println("====================================");
+        System.out.println();
+
+        System.out.println("\nBooks with titles 15 characters long:");
+        fifteenCharTitles = bookstore.getBooksThisLength(15);
+        fifteenCharTitles.forEach(novel -> System.out.println(novel.getTitle()));
     }
 }
