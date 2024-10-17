@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2eed3db6-0b83-4da2-a258-b73417da1802" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Code/BookStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Code/BookStore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Code/Novel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Code/Novel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Code/BookShop.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,11 +36,10 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.BookStore.executor": "Run",
-    "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/manasesvillalobos/Documents/CST/Term 2/COMP2522 Java 2/comp_2522_lab5",
+    "last_opened_file_path": "/Users/manasesvillalobos/Documents/CST/Term 2/COMP2522 Java 2/Labs/comp_2522_lab5",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -54,11 +51,6 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-    </key>
-  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -79,7 +71,6 @@
       <workItem from="1727998583557" duration="654000" />
       <workItem from="1728073341194" duration="826000" />
       <workItem from="1728487275665" duration="7925000" />
-      <workItem from="1729196628805" duration="5199000" />
     </task>
     <servers />
   </component>
