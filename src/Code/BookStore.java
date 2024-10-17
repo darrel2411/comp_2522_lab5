@@ -1,9 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Represent a BookStore class.
@@ -14,6 +11,8 @@ import java.util.Scanner;
 public class BookStore {
     private final String name;
     private final List<Novel> novels;
+    private final Map<String, Novel> novelMap;
+    private final Set<String> keys;
 
     private static final int END_DECADE = 9;
     private static final int MAX_PERCENTAGE = 100;
@@ -24,6 +23,7 @@ public class BookStore {
     private static final int SECOND_ELEMENT_ARRAY = 1;
     private static final int THIRD_ELEMENT_ARRAY = 2;
     private static final char SPECIAL_CHAR = '"';
+    private static final String SPECIAL_WORD = "the";
     private static final String DELIMITER = ",";
     private static final String FILE_NAME = "dataLab5.csv";
 
@@ -38,9 +38,74 @@ public class BookStore {
         validateName(name);
         this.name = name;
         this.novels = new ArrayList<>();
+        this.novelMap = new HashMap<>();
 
         populateNovels(this.novels);
 
+        // Part 2
+        createMap(this.novels);
+        this.keys = novelMap.keySet();
+        printTitlesAndClean(this.keys, SPECIAL_WORD);
+        final List<String> keyList = new ArrayList<>(keys);
+        // Step 3: Sort the List
+        Collections.sort(keyList);
+
+        // Printing the new list
+        System.out.println("Printing list sorted and without the word \"" +
+                            SPECIAL_WORD + "\"");
+        System.out.println();
+        for (final String key : keyList) {
+            System.out.println(this.novelMap.get(key));
+            System.out.println();
+        }
+
+    }
+
+
+    /*
+     * It will iterate through the keys and
+     * print them then check for the ones that contains
+     * the specialWord and delete them.
+     * @param Keys representing the keys
+     * @param specialWords as a String
+     */
+    private void printTitlesAndClean(final Set<String> keys,
+                                     final String specialWord)
+    {
+        final Iterator<String> iterator;
+
+        iterator = this.keys.iterator();
+
+        while (iterator.hasNext()) {
+            final String key;
+
+            key = iterator.next();
+
+            System.out.println(key);
+            if(key.contains(specialWord)){
+                iterator.remove();
+            }
+
+        }
+
+        System.out.println();
+    }
+
+
+    /*
+     * It populates the hashMap putting the title of the novel
+     * as a key and the novel as the value.
+     * @param novels as a List of novels.
+     */
+    private void createMap(final List<Novel> novels) {
+        for(final Novel novel : this.novels) {
+            final String title;
+
+            // Gets the title of the novel
+            title = novel.getTitle();
+
+            this.novelMap.put(title, novel);
+        }
     }
 
     /*

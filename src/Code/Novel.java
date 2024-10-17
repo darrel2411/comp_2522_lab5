@@ -58,8 +58,11 @@ public class Novel {
      * Creates a sentences with the information of the novel.
      * @return details as a String.
      */
+    @Override
     public String toString(){
-        return title + ", " + authorName + ", " + yearPublished;
+        return "Title: " + title + "\n" +
+                "Author: " + authorName + "\n" +
+                "Year published: " + yearPublished;
     }
 
 }
