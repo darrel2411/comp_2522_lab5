@@ -53,17 +53,13 @@ public class Novel {
         return yearPublished;
     }
 
-//    /**
-//     * Override CompareTo method.
-//     * @return title titles in alpha order
-//     */
-//    @Override
-//    public int compareTo(final Novel that) {
-//        return that.getTitle() - this.getTitle();
-//    }
 
+    /**
+     * Creates a sentences with the information of the novel.
+     * @return details as a String.
+     */
     public String toString(){
-        return (title + ", " + authorName + ", " + yearPublished);
+        return title + ", " + authorName + ", " + yearPublished;
     }
 
 }
