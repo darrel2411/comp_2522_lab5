@@ -233,5 +233,11 @@ public class BookStore {
         System.out.println("\nBooks with titles 15 characters long:");
         fifteenCharTitles = bookstore.getBooksThisLength(15);
         fifteenCharTitles.forEach(novel -> System.out.println(novel.getTitle()));
+
+
+//        // part 2
+//        final BookShop bs;
+//        bs = new BookShop()
+
     }
 }
